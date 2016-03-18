@@ -3,6 +3,7 @@ images
 /include/
 local/
 pip-selfcheck.json
+GestionMusique/db.sqlite3
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

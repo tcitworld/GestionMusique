@@ -5,7 +5,7 @@ from django.db import models
 # Create your models here.
 
 class Author(models.Model):
-	name = models.CharField(max_length=200)
+	name = models.CharField(max_length=200,null=True)
 
 class Singer(models.Model):
 	name = models.CharField(max_length=200)
@@ -16,15 +16,13 @@ class Genre(models.Model):
 		return self.label
 
 class Song(models.Model):
-	id = models.IntegerField(primary_key=True)
 	title = models.CharField(max_length=200)
-	author = models.OneToOneField(Author)
-	img = models.CharField(max_length=200)
+	author = models.ForeignKey(Author)
+	img = models.CharField(max_length=200,null=True)
 	releaseYear = models.IntegerField()
-	singer = models.OneToOneField(Singer)
+	singer = models.ForeignKey(Singer)
 	genres = models.ManyToManyField(Genre, through="Classification")
 
 class Classification(models.Model):
 	song = models.ForeignKey(Song)
 	genre = models.ForeignKey(Genre)
-
