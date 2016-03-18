@@ -6,11 +6,14 @@
   </head>
   <body>
     <h1>{{ song.title }}</h1>
-    <img src="{{ song.img }}">
+    {% load static %}
+    {% if song.img %}
+    <img src="{% static 'player/images/'|add:song.img %}" >
+    {% endif %}
     <em>performed by <a href="{{ song.singer.id }}">{{ song.singer }}</a></em>
     <em>written by <a href="{{ song.author.id }}">{{ song.author }}</a></em>
     <div class="genres">
-      {% for genre in song.genres %}
+      {% for genre in song.genres.all %}
       <span class="genre">{{ genre.label }}</span>
       {% endfor %}
     </div>

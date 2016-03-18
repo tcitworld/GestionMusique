@@ -7,5 +7,5 @@ def home(request):
     return render(request, 'player/player.html', locals())
 
 def song(request, song_id):
-    song = get_object_or_404(Song, pk=song_id)
-    return render(request, 'player/song.html', {{ song }})
+    song = get_object_or_404(Song, id=song_id)
+    return render(request, 'player/song.html', locals())

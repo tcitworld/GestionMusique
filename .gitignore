@@ -4,6 +4,7 @@ images
 local/
 pip-selfcheck.json
 GestionMusique/db.sqlite3
+core/migrations/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -12,7 +12,7 @@ class Command(BaseCommand):
 		songs = yaml.load(open(option['filename'][0]))
 		i = 0;
 		tt = len(songs)
-		for i in range(1,1000):
+		for i in range(1,tt):
 			s = songs[i]
 			a,isNew = Author.objects.get_or_create( name=s['by'])
 			if isNew:
