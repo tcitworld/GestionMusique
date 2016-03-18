@@ -6,9 +6,13 @@ from django.db import models
 
 class Author(models.Model):
 	name = models.CharField(max_length=200)
+	def __str__(self):
+		return self.name
 
 class Singer(models.Model):
 	name = models.CharField(max_length=200)
+	def __str__(self):
+		return self.name
 
 class Genre(models.Model):
 	label = models.CharField(max_length=200)
@@ -27,4 +31,3 @@ class Song(models.Model):
 class Classification(models.Model):
 	song = models.ForeignKey(Song)
 	genre = models.ForeignKey(Genre)
-
