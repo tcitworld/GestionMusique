@@ -5,7 +5,7 @@ from django.db import models
 # Create your models here.
 
 class Author(models.Model):
-	name = models.CharField(max_length=200)
+	name = models.CharField(max_length=200,null=True)
 	def __str__(self):
 		return self.name
 
@@ -21,7 +21,7 @@ class Genre(models.Model):
 
 class Song(models.Model):
 	title = models.CharField(max_length=200)
-	author = models.ForeignKey(Author)
+	author = models.ForeignKey(Author,null=True)
 	img = models.CharField(max_length=200,null=True)
 	releaseYear = models.IntegerField()
 	singer = models.ForeignKey(Singer)

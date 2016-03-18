@@ -10,13 +10,15 @@ class Command(BaseCommand):
 
 	def handle(self,**option):
 		songs = yaml.load(open(option['filename'][0]))
-		i = 0;
 		tt = len(songs)
 		for i in range(1,tt):
 			s = songs[i]
-			a,isNew = Author.objects.get_or_create( name=s['by'])
-			if isNew:
-				a.save()
+			if s['by'] != 'X':
+				a,isNew = Author.objects.get_or_create( name=s['by'])
+				if isNew:
+					a.save()
+			else:
+				a = None
 			si,isNew = Singer.objects.get_or_create( name=s['parent'])
 			if isNew:
 				si.save()
@@ -31,7 +33,7 @@ class Command(BaseCommand):
 				if isNew:
 					c.save()
 
-			sys.stdout.write("Chanson n° "+ str(i).ljust(6," ") + " | " + str(int(i/tt*100)).ljust(4," ") + " % en cours" + chr(13))
+			sys.stdout.write("Chanson n° "+ str(i).ljust(6," ") + " | " + str(int(i/tt*100)).rjust(4," ") + " % en cours" + chr(13))
 			sys.stdout.flush()
 
 		self.stdout.write("Database loaded")
