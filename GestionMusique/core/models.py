@@ -4,27 +4,27 @@ from django.db import models
 
 # Create your models here.
 
-class Author(models.Model):
+class Artist(models.Model):
 	name = models.CharField(max_length=200,null=True)
 	def __str__(self):
-		return self.name
+		return self.name.encode('utf8')
 
-class Singer(models.Model):
+class Group(models.Model):
 	name = models.CharField(max_length=200)
 	def __str__(self):
-		return self.name
+		return self.name.encode('utf8')
 
 class Genre(models.Model):
 	label = models.CharField(max_length=200)
 	def __str__(self):
-		return self.label
+		return self.label.encode('utf8')
 
 class Song(models.Model):
 	title = models.CharField(max_length=200)
-	author = models.ForeignKey(Author,null=True)
-	img = models.CharField(max_length=200,null=True)
+	artist = models.ForeignKey(Artist,null=True)
+	img = models.ImageField(null=True, upload_to='images')
 	releaseYear = models.IntegerField()
-	singer = models.ForeignKey(Singer)
+	group = models.ForeignKey(Group, null=True)
 	genres = models.ManyToManyField(Genre, through="Classification")
 
 class Classification(models.Model):

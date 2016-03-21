@@ -16,22 +16,22 @@ class Command(BaseCommand):
 		for i in range(1,tt):
 			s = songs[i]
 			if s['by'] != 'X':
-				a,isNew = Author.objects.get_or_create( name=s['by'])
+				a,isNew = Artist.objects.update_or_create( name=s['by'])
 				if isNew:
 					a.save()
 			else:
 				a = None
-			si,isNew = Singer.objects.get_or_create( name=s['parent'])
+			si,isNew = Group.objects.update_or_create( name=s['parent'])
 			if isNew:
 				si.save()
-			song,isNew = Song.objects.update_or_create(title=s['title'], author=a, img=urllib.quote(s['img']) if s['img'] != None else None, releaseYear=s['releaseYear'], singer=si)
+			song,isNew = Song.objects.update_or_create(title=s['title'], artist=a, img=urllib.quote(s['img']) if s['img'] != None else None, releaseYear=s['releaseYear'], group=si)
 			if isNew:
 				song.save()
 			for genre in s['genre']:
-				g,isNew = Genre.objects.get_or_create( label=genre)
+				g,isNew = Genre.objects.update_or_create( label=genre)
 				if isNew:
 					g.save()
-				c,isNew = Classification.objects.get_or_create(song=song,genre=g)
+				c,isNew = Classification.objects.update_or_create(song=song,genre=g)
 				if isNew:
 					c.save()
 

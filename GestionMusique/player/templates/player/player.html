@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Hello</title>
-    {% load static %}
-  </head>
-  <body>
+{% extends "player/base.html" %}
+{% block content %}
   	Here are a few songs :
+  	{% load static %}
   	{% for song in songs %}
   		 <h1>{{ song.title }}</h1>
 	    {% if song.img %}
-	    <img src="{% static 'player/images/'|add:song.img %}" >
+	    <img src="/media/images/{{song.img.name}}" >
 	    {% else %}
 	    <img src="{% static 'player/Musical Notes-48.png' %}" >
 	    {% endif %}
-	    <em>performed by <a href="{% url "player.views.author" song.singer.id %}">{{ song.singer }}</a></em>
-	    <em>written by <a href="{% url "player.views.author" song.author.id %}">{{ song.author }}</a></em>
+	    <em>performed by <a href="{% url 'player.views.artist' song.artist.id %}">{{ song.artist }}</a> (<a href="{% url 'player.views.group' song.group.id %}">{{ song.group }}</a>)</em>
 	    <div class="genres">
 	      {% for genre in song.genres.all %}
 	      <span class="genre">{{ genre.label }}</span>
@@ -23,5 +17,4 @@
 	    </div>
 	    Released in {{ song.releaseYear }}
   	{% endfor %}
-  </body>
-</html>
+{% endblock %}

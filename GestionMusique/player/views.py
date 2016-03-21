@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Q
 from core.models import *
 
 # Create your views here.
@@ -12,7 +11,12 @@ def song(request, song_id):
     song = get_object_or_404(Song, id=song_id)
     return render(request, 'player/song.html', locals())
 
-def author(request, author_id):
-	author = get_object_or_404(Author, id=author_id)
-	songs = Song.objects.filter(Q(author=author.id) | Q(singer=author.id))
-	return render(request, 'player/author.html', locals())
+def artist(request, artist_id):
+	artist = get_object_or_404(Artist, id=artist_id)
+	songs = Song.objects.filter(artist=artist.id)
+	return render(request, 'player/artist.html', locals())
+
+def group(request, group_id):
+	group = get_object_or_404(Group, id=group_id)
+	songs = Song.objects.filter(group=group.id)
+	return render(request, 'player/group.html', locals())

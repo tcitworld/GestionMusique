@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>{{ author }}</title>
-          {% load static %}
-  </head>
-  <body>
+{% extends "base.html" %}
+{% block content %}
     <h1>{{ author }}</h1>
     {% for song in songs.all %}
         <h2><a href="{% url "player.views.song" song.id %}">{{ song.title }}</a></h2>
@@ -13,5 +7,4 @@
       <img src="{% static 'player/images/'|add:song.img %}" >
       {% endif %}
     {% endfor %}
-  </body>
-</html>
+{% endblock %}
