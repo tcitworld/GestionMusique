@@ -8,10 +8,10 @@
     <h1>{{ song.title }}</h1>
     {% load static %}
     {% if song.img %}
-    <img src="{% static 'player/images/'|add:song.img %}" >
+    <img src="{% static 'player/images/'|add:song.img|force_escape %}" >
     {% endif %}
-    <em>performed by <a href="{{ song.singer.id }}">{{ song.singer }}</a></em>
-    <em>written by <a href="{{ song.author.id }}">{{ song.author }}</a></em>
+    <em>performed by <a href="{% url "player.views.author" song.singer.id %}">{{ song.singer }}</a></em>
+    <em>written by <a href="{% url "player.views.author" song.author.id %}">{{ song.author }}</a></em>
     <div class="genres">
       {% for genre in song.genres.all %}
       <span class="genre">{{ genre.label }}</span>

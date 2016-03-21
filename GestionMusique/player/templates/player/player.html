@@ -3,8 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title>Hello</title>
+    {% load static %}
   </head>
   <body>
-    List of songs.
+  	Here are a few songs :
+  	{% for song in songs %}
+  		 <h1>{{ song.title }}</h1>
+	    {% if song.img %}
+	    <img src="{% static 'player/images/'|add:song.img %}" >
+	    {% else %}
+	    <img src="{% static 'player/Musical Notes-48.png' %}" >
+	    {% endif %}
+	    <em>performed by <a href="{% url "player.views.author" song.singer.id %}">{{ song.singer }}</a></em>
+	    <em>written by <a href="{% url "player.views.author" song.author.id %}">{{ song.author }}</a></em>
+	    <div class="genres">
+	      {% for genre in song.genres.all %}
+	      <span class="genre">{{ genre.label }}</span>
+	      {% endfor %}
+	    </div>
+	    Released in {{ song.releaseYear }}
+  	{% endfor %}
   </body>
 </html>

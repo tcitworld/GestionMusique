@@ -1,6 +1,8 @@
+# coding: utf8
+
 from django.core.management.base import BaseCommand, CommandError
 from core.models import *
-import yaml,sys
+import yaml,sys,urllib
 
 class Command(BaseCommand):
 	help = "Load the database"
@@ -22,7 +24,7 @@ class Command(BaseCommand):
 			si,isNew = Singer.objects.get_or_create( name=s['parent'])
 			if isNew:
 				si.save()
-			song,isNew = Song.objects.get_or_create(title=s['title'], author=a, img=s['img'], releaseYear=s['releaseYear'], singer=si)
+			song,isNew = Song.objects.update_or_create(title=s['title'], author=a, img=urllib.quote(s['img']) if s['img'] != None else None, releaseYear=s['releaseYear'], singer=si)
 			if isNew:
 				song.save()
 			for genre in s['genre']:
