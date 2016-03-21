@@ -3,10 +3,9 @@
     <h1>{{ song.title }}</h1>
     {% load static %}
     {% if song.img %}
-    {{ song.img.name }}
-    <img src="/media/{{ song.img.name }}" >
+    <img src="/media/images/{{ song.img.name }}" >
     {% endif %}
-    <em>performed by <a href="{% url 'player.views.artist' song.artist.id %}">{{ song.artist }}</a> (<a href="{% url 'player.views.group' song.group.id %}">{{ song.group }}</a>)</em>
+    <em><a href="{% url 'player.views.artist' song.artist.id %}">{{ song.artist }}</a> (<a href="{% url 'player.views.group' song.group.id %}">{{ song.group }}</a>)</em>
     <div class="genres">
       {% for genre in song.genres.all %}
       <span class="genre">{{ genre.label }}</span>

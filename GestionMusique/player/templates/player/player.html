@@ -1,20 +1,33 @@
 {% extends "player/base.html" %}
 {% block content %}
-  	Here are a few songs :
-  	{% load static %}
+{% load static %}
+<div class="container">
   	{% for song in songs %}
-  		 <h1>{{ song.title }}</h1>
-	    {% if song.img %}
-	    <img src="/media/images/{{song.img.name}}" >
-	    {% else %}
-	    <img src="{% static 'player/Musical Notes-48.png' %}" >
-	    {% endif %}
-	    <em>performed by <a href="{% url 'player.views.artist' song.artist.id %}">{{ song.artist }}</a> (<a href="{% url 'player.views.group' song.group.id %}">{{ song.group }}</a>)</em>
-	    <div class="genres">
-	      {% for genre in song.genres.all %}
-	      <span class="genre">{{ genre.label }}</span>
-	      {% endfor %}
+  		{% if forloop.counter|divisibleby:3 %}
+  		<div class="row">
+  		{% endif %}
+  		<div class="col-md-4">
+  			<a href="{% url 'player.views.song' song.id %}">
+		    {% if song.img %}
+		    <img src="/media/images/{{song.img.name}}" >
+		    {% else %}
+		    <img src="{% static 'player/Musical Notes-48.png' %}" >
+		    {% endif %}
+		    </a>
+		    <div class="infos">
+			   	<a href="{% url 'player.views.song' song.id %}">{{ song.title }}</a>
+			    <em><a href="{% url 'player.views.artist' song.artist.id %}">{{ song.artist }}</a> (<a href="{% url 'player.views.group' song.group.id %}">{{ song.group }}</a>)</em>
+			    <div class="genres">
+			      {% for genre in song.genres.all %}
+			      <span class="genre">{{ genre.label }}</span>
+			      {% endfor %}
+			    </div>
+			    Released in {{ song.releaseYear }}
+			</div>
 	    </div>
-	    Released in {{ song.releaseYear }}
+	    {% if forloop.counter|divisibleby:3 %}
+	    </div>
+	    {% endif %}
   	{% endfor %}
+</div>
 {% endblock %}
