@@ -6,17 +6,17 @@ from django.db import models
 class Artist(models.Model):
 	name = models.CharField(max_length=200)
 	def __str__(self):
-		return self.name.encode('utf8')
+		return self.name
 
 class Group(models.Model):
 	name = models.CharField(max_length=200)
 	def __str__(self):
-		return self.name.encode('utf8')
+		return self.name
 
 class Genre(models.Model):
 	label = models.CharField(max_length=200)
 	def __str__(self):
-		return self.label.encode('utf8')
+		return self.label
 
 class Song(models.Model):
 	title = models.CharField(max_length=200)
@@ -25,6 +25,8 @@ class Song(models.Model):
 	releaseYear = models.IntegerField()
 	group = models.ForeignKey(Group)
 	genres = models.ManyToManyField(Genre, through="Classification")
+	def __str__(self):
+		return self.title
 
 class Classification(models.Model):
 	song = models.ForeignKey(Song)
