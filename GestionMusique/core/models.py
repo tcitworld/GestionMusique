@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class Artist(models.Model):
-	name = models.CharField(max_length=200,null=True)
+	name = models.CharField(max_length=200)
 	def __str__(self):
 		return self.name.encode('utf8')
 
@@ -20,10 +20,10 @@ class Genre(models.Model):
 
 class Song(models.Model):
 	title = models.CharField(max_length=200)
-	artist = models.ForeignKey(Artist,null=True)
+	artist = models.ForeignKey(Artist)
 	img = models.ImageField(null=True, upload_to='images')
 	releaseYear = models.IntegerField()
-	group = models.ForeignKey(Group, null=True)
+	group = models.ForeignKey(Group)
 	genres = models.ManyToManyField(Genre, through="Classification")
 
 class Classification(models.Model):
