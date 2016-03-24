@@ -1,15 +1,17 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from .models import *
-from .forms.userForm import LoginForm
+from .forms.userForm import *
 
 
 # Create your views here.
-def home(request):
+def home(request,message=""):
 	songs = Song.objects.all().order_by('?')[:20]
 	form = LoginForm()
-	return render(request, 'player/player.html', {'songs':songs,'form':form})
+	return render(request, 'player/player.html', {'songs':songs,'form':form,'message':message})
+
 
 def song(request, song_id):
     song = get_object_or_404(Song, id=song_id)
@@ -26,13 +28,19 @@ def group(request, group_id):
 	return render(request, 'player/group.html', locals())
 
 def login(request):
-    form = LoginForm(request.POST)
+    username = request.POST['username']
+    password = request.POST['password']
     user = authenticate(username=username, password=password)
-    if form.is_valid():
-        user = authenticate(username=form.cleaned_data.username, password=form.cleaned_data.password)
+    message = 'Username or password invalid'
+    if user is not None:
         if user.is_active:
             login(request, user)
-    return home(request)
+            message = "Hi, have a good moment"
+    return home(request,message)
 
 def register(request):
+	register = RegisterForm()
+	return render(request,'player/register.html', locals())
+
+def logout(request):
 	return home(request)

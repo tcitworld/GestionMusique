@@ -31,3 +31,4 @@ class Song(models.Model):
 class Classification(models.Model):
 	song = models.ForeignKey(Song)
 	genre = models.ForeignKey(Genre)
+

@@ -1,0 +1,19 @@
+{% extends "player/base.html" %}
+{% block content %}
+<form class="col-xs-6 col-xs-offset-3 form-horizontal" method="POST" action="{% url 'player.views.register' %}">
+    {% csrf_token %}
+    {% for field in register %}
+  	<div class="form-group">
+
+  		{{ field.label}}
+  		{{ field.name }}
+  	</div>
+  	{% endfor %}
+  	<button class="btn btn-success" type="submit">Register</button>
+</form>
+<div class="errors" >
+	{% for error in form.errors %}
+        <strong>{{ error|escape }}</strong><br>
+    {% endfor %}
+</div>
+{% endblock %}
