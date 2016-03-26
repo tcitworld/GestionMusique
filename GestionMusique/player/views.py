@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import *
 from .forms.userForm import *
@@ -27,7 +27,7 @@ def group(request, group_id):
 	songs = Song.objects.filter(group=group.id)
 	return render(request, 'player/group.html', locals())
 
-def login(request):
+def loginUser(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(username=username, password=password)
@@ -39,8 +39,14 @@ def login(request):
     return home(request,message)
 
 def register(request):
+	if request.method == 'POST':
+		form = RegisterForm(request.POST)
+		if form.is_valid():
+			user = User.objects.create(username=form.cleaned_data['username'],password=form.cleaned_data['password'],email=form.cleaned_data['email'],first_name=form.cleaned_data['first_name'],last_name=form.cleaned_data['last_name'])
+			return home(request,"Register done")
 	register = RegisterForm()
 	return render(request,'player/register.html', locals())
 
-def logout(request):
+def logoutUser(request):
+	logout(request)
 	return home(request)

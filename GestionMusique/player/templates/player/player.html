@@ -9,7 +9,7 @@
   		<div class="col-md-4">
   			<a href="{% url 'player.views.song' song.id %}">
 		    {% if song.img %}
-		    <img src="/media/images/{{song.img.name}}" >
+		    <img src="/media/images/{{song.img.name}}">
 		    {% else %}
 		    <img src="{% static 'player/Musical Notes-48.png' %}" >
 		    {% endif %}

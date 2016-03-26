@@ -18,7 +18,7 @@
   			<a class="navbar-brand" href="{% url 'player.views.home' %}">Player</a>
   		</div>
   		<div id="navbar" class="navbar-collapse collapse">
-        <form class="navbar-form navbar-right" method="POST" action="{% url 'player.views.login' %}">
+        <form class="navbar-form navbar-right" method="POST" action="{% url 'player.views.loginUser' %}">
           {% if not user.is_authenticated %}
           {% csrf_token %}
   				<div class="form-group">
@@ -28,9 +28,12 @@
   					{{ form.password }}
   				</div>
   				<button class="btn btn-success" type="submit">Login</button>
-          <a class="btn btn-primary" href="{% url 'player.views.register' %}">register</a>
+          <a class="btn btn-primary" href="{% url 'url_register' %}">register</a>
           {% else %}
-          <a class="btn btn-primary" href="{% url 'player.views.logout' %}">register</a>
+          <a class="btn btn-success" href="{% url 'player.views.logoutUser' %}">logout</a>
+          {% endif %}
+          {% if user.is_staff %}
+          <a class="btn btn-warning" href="/admin/">Admin</a>
           {% endif %}
           <div id="connexion" class=""><strong>{{message}}</strong></div>
   			</form>
@@ -38,11 +41,6 @@
   	</div>
   </nav>
   <div class="main">
-  <div class="errors">
-    {% for error in form.errors %}
-        <strong>{{ error|escape }}</strong><br>
-    {% endfor %}
-  </div>
   {% block content %}{% endblock %}
   </div>
   </body>
