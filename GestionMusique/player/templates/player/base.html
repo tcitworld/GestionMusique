@@ -30,7 +30,7 @@
   				<button class="btn btn-success" type="submit">Login</button>
           <a class="btn btn-primary" href="{% url 'url_register' %}">register</a>
           {% else %}
-          <a class="btn btn-success" href="{% url 'player.views.logoutUser' %}">logout</a>
+          <a class="btn btn-danger" href="{% url 'player.views.logoutUser' %}">logout</a>
           {% endif %}
           {% if user.is_staff %}
           <a class="btn btn-warning" href="/admin/">Admin</a>

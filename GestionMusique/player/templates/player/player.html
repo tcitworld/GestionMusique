@@ -1,6 +1,9 @@
 {% extends "player/base.html" %}
 {% block content %}
-{% load static %}
+{% load static player_extra %}
+{% if user.is_authenticated %}
+
+{% endif %}
 <div class="container">
   	{% for song in songs %}
   		{% if forloop.counter|divisibleby:3 %}
@@ -8,7 +11,7 @@
   		{% endif %}
   		<div class="col-md-4">
   			<a href="{% url 'player.views.song' song.id %}">
-		    {% if song.img %}
+		    {% if songimg and ong.img.name|exist %}
 		    <img src="/media/images/{{song.img.name}}">
 		    {% else %}
 		    <img src="{% static 'player/Musical Notes-48.png' %}" >

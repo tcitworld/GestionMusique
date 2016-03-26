@@ -1,9 +1,9 @@
 {% extends "player/base.html" %}
 {% block content %}
     <h1>{{ song.title }}</h1>
-    {% load static %}
-    {% if song.img %}
-    <img src="/media/images/{{ song.img.name }}" alt="{% static 'player/Musical Notes-48.png' %}">
+    {% load static player_extra %}
+    {% if song.img and song.img.name|exist %}
+    <img src="/media/images/{{ song.img.name }}" alt="">
     {% endif %}
     <em><a href="{% url 'player.views.artist' song.artist.id %}">{{ song.artist }}</a> (<a href="{% url 'player.views.group' song.group.id %}">{{ song.group }}</a>)</em>
     <div class="genres">

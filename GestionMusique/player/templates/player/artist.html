@@ -1,10 +1,10 @@
 {% extends "player/base.html" %}
 {% block content %}
-    {% load static %}
+    {% load static player_extra %}
     <h1>{{ author }}</h1>
     {% for song in songs.all %}
         <h2><a href="{% url "player.views.song" song.id %}">{{ song.title }}</a></h2>
-      {% if song.img %}
+      {% if song.img and song.img.name|exist %}
       <img src="/media/images/{{ song.img.name }}" >
       {% endif %}
     {% endfor %}
