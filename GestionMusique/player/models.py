@@ -18,7 +18,7 @@ class Genre(models.Model):
 	def __str__(self):
 		return self.label
 
-class Song(models.Model):
+class Album(models.Model):
 	title = models.CharField(max_length=200)
 	artist = models.ForeignKey(Artist)
 	img = models.ImageField(null=True, upload_to='images')
@@ -29,6 +29,5 @@ class Song(models.Model):
 		return self.title
 
 class Classification(models.Model):
-	song = models.ForeignKey(Song)
+	album = models.ForeignKey(Album)
 	genre = models.ForeignKey(Genre)
-

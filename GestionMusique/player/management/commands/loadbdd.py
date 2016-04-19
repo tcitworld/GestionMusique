@@ -11,10 +11,10 @@ class Command(BaseCommand):
 		parser.add_argument('filename',nargs='+',type=str)
 
 	def handle(self,**option):
-		songs = yaml.load(open(option['filename'][0]))
+		albums = yaml.load(open(option['filename'][0]))
 		tt = 100
 		for i in range(1,tt):
-			s = songs[i]
+			s = albums[i]
 			if s['by'] != 'X' or s['by'] != None or s['by'] != 'null':
 				a,isNew = Artist.objects.update_or_create( name=s['by'])
 			else:
@@ -27,14 +27,14 @@ class Command(BaseCommand):
 				si,isNew = Group.objects.update_or_create( name="inconnue")
 			if isNew:
 				si.save()
-			song,isNew = Song.objects.update_or_create(title=s['title'], artist=a, img=urllib.parse.quote(s['img']) if s['img'] != None else None, releaseYear=s['releaseYear'], group=si)
+			album,isNew = Album.objects.update_or_create(title=s['title'], artist=a, img=urllib.parse.quote(s['img']) if s['img'] != None else None, releaseYear=s['releaseYear'], group=si)
 			if isNew:
-				song.save()
+				album.save()
 			for genre in s['genre']:
 				g,isNew = Genre.objects.update_or_create( label=genre)
 				if isNew:
 					g.save()
-				c,isNew = Classification.objects.update_or_create(song=song,genre=g)
+				c,isNew = Classification.objects.update_or_create(album=album,genre=g)
 				if isNew:
 					c.save()
 

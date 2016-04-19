@@ -1,0 +1,15 @@
+{% extends "player/base.html" %}
+{% block content %}
+    <h1>{{ album.title }}</h1>
+    {% load static player_extra %}
+    {% if album.img and album.img.name|exist %}
+    <img src="/media/images/{{ album.img.name }}" alt="">
+    {% endif %}
+    <em><a href="{% url 'player.views.artist' album.artist.id %}">{{ album.artist }}</a> (<a href="{% url 'player.views.group' album.group.id %}">{{ album.group }}</a>)</em>
+    <div class="genres">
+      {% for genre in album.genres.all %}
+      <span class="genre">{{ genre.label }}</span>
+      {% endfor %}
+    </div>
+    Released in {{ album.releaseYear }}
+{% endblock %}
