@@ -2,7 +2,7 @@
 {% block content %}
 {% load static player_extra %}
 {% if user.is_authenticated %}
-
+{% block authentified %}{% endblock %}
 {% endif %}
 <div class="container">
   	{% for album in albums %}
