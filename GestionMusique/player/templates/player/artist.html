@@ -5,8 +5,9 @@
     <div class="artist_background">
       <img class="pic">
     </div>
-    <div class="artist_info">
     <h1 class="artist">{{ artist }}</h1>
+    </div>
+    <div class="artist_info">
     {% for album in albums.all %}
         <h2><a href="{% url "player.views.album" album.id %}">{{ album.title }}</a></h2>
       {% if album.img and album.img.name|exist %}
