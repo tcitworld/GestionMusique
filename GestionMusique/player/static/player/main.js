@@ -2,17 +2,20 @@ var Spotify = require('spotify-web-api-js');
 var s = new Spotify();
 
 window.onload=function(){
-	album = document.querySelector(".albumTitle").textContent;
+
+  if (document.querySelector(".albumTitle") != null) {
+
+  album = document.querySelector(".albumTitle").textContent;
 	artist = document.querySelector(".artist").textContent;
 	trackList = document.querySelector("#trackslist").getElementsByTagName('tbody')[0];
-
-	console.log(album);
-	console.log(artist);
 
 	s.searchAlbums(album + " artist:" + artist)
 	.then(function(data) {
     	console.log('Search artists', data.albums.items[0]);
-    	document.querySelector(".pic").setAttribute('src',data.albums.items[0].images[0].url);
+    	var pics = document.querySelectorAll(".pic")
+      for (var pic of pics) {
+        pic.setAttribute('src',data.albums.items[0].images[0].url);
+      }
     	return data.albums.items[0].id;
   	})
   	.then(function(albumid) {
@@ -32,7 +35,9 @@ window.onload=function(){
   			cell2.appendChild(name);
 
   			var cell3  = newRow.insertCell(2);
-  			var duration  = document.createTextNode(track.duration_ms);
+        var duration2 = new Date(track.duration_ms);
+        var sec = (duration2.getUTCSeconds() < 10) ? "0" + duration2.getUTCSeconds() : duration2.getUTCSeconds();
+  			var duration  = document.createTextNode(duration2.getUTCMinutes() + ":" +  sec);
   			cell3.appendChild(duration);
 
   			console.log(track);
@@ -41,4 +46,20 @@ window.onload=function(){
   	.catch(function(error) {
     	console.error(error);
   });
+
+  } else {
+
+    artist = document.querySelector(".artist").textContent;
+
+    s.searchArtists(artist)
+    .then(function(data) {
+      console.log('Search artists', data.artists.items[0]);
+      var pics = document.querySelectorAll(".pic")
+      for (var pic of pics) {
+        pic.setAttribute('src',data.artists.items[0].images[0].url);
+      }
+    }, function(err) {
+      console.error(err);
+    });
+  }
 }

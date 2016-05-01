@@ -1,7 +1,7 @@
 {
-  "name": "Gestion Musique",
+  "name": "GestionMusique",
   "description": "Student Project",
-  "version": "0.1",
+  "version": "0.0.1",
   "private": true,
   "homepage": "https://github.com/tcitworld/GestionMusique",
   "repository": {
@@ -11,9 +11,11 @@
   "bugs": "https://github.com/tcitworld/GestionMusique/issues",
   "engine": "node >= 0.8",
   "dependencies": {
+    "bower": "^1.7.9",
     "browserify": "^13.0.0",
     "grunt": "^1.0.1",
     "grunt-browserify": "^5.0.0",
+    "grunt-contrib-copy": "^1.0.0",
     "load-grunt-tasks": "^3.5.0",
     "spotify-web-api-js": "^0.19.2"
   }
