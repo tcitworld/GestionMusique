@@ -37,19 +37,27 @@
         </div>
       </div>
     </header>
-    <div class="table-responsive">
-      <table id="trackslist" class="table table-hover ">
-        <thead>
-          <tr>
-            <th>Track</th>
-            <th>Name</th>
-            <th>Duration</th>
-          </tr>
-        </thead>
-        <tbody>
+    <div class="progress" id="loading">
+      <div class="indeterminate"></div>
+    </div>
+    <div class="alert alert-danger" id="noTracks">
+      Unable to fetch tracks
+    </div>
+    <div class="tracks_layout">
+      <div class="table-responsive">
+        <table id="trackslist" class="table table-hover ">
+          <thead>
+            <tr>
+              <th>Track</th>
+              <th>Name</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
 
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
     Composé par <a href="{% url 'player.views.group' album.group.id %}">{{ album.group }}</a>
 {% endblock %}

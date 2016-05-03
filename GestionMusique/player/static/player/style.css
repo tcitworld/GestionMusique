@@ -17,6 +17,7 @@
 
 .page-footer {
 	background-color:#565656 !important;
+	z-index: 10;
 }
 
 #navbar {
@@ -24,7 +25,7 @@
 	font-size: 20px;
 }
 
-input {
+.navbar input {
 	color: white !important;
 }
 
@@ -54,8 +55,12 @@ Player
 
 */
 
-.albums {
+.albums, .register-panel {
 	padding-top: 20px;
+}
+
+.album-card {
+	text-align: center;
 }
 
 /*
@@ -89,7 +94,7 @@ Album
 	text-shadow: 2px;
 }
 
-.infos {
+header > .infos {
 	text-align: center;
 	position: relative;
 	color: white;
@@ -154,6 +159,14 @@ header {
 	width: 100%;
 }
 
+.tracks_layout {
+	display: none;
+}
+
+#noTracks {
+	display: none;
+}
+
 
 /*
 
@@ -170,6 +183,7 @@ Artist
 	height: 50%;
 	top: 0;
 	left: 0;
+	min-height: 677px;
 }
 
 .artist_background {
@@ -181,10 +195,22 @@ Artist
 	width: 100%;
 	height: auto !important;
 	display: inline-block;
+	z-index: -10;
+	position: absolute;
+	top: -50%;
 }
 
 .artist_info {
-  text-align: center;
+  	text-align: center;
 	position: relative;
 	color: white;
+	margin-top: 20px;
+}
+
+.album_card img {
+	max-height: 200px;
+}
+
+.album_card h2 {
+	font-size: 30px;
 }

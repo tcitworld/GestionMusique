@@ -5,14 +5,22 @@
     <div class="artist_background">
       <img class="pic">
     </div>
-    <h1 class="artist">{{ artist }}</h1>
+    <h1 class="artist">|{{ artist }}|</h1>
     </div>
     <div class="artist_info">
     {% for album in albums.all %}
-        <h2><a href="{% url "player.views.album" album.id %}">{{ album.title }}</a></h2>
-      {% if album.img and album.img.name|exist %}
-      <img src="/media/images/{{ album.img.name }}" >
-      {% endif %}
+      <div class="col-md-4">
+        <div class="album_card">
+          <a href="{% url "player.views.album" album.id %}">
+          {% if album.img and album.img.name|exist %}
+            <img src="/media/images/{{ album.img.name }}" >
+          {% else %}
+            <img class="pic">
+          {% endif %}
+          </a>
+          <h2><a class="album_card_title" href="{% url "player.views.album" album.id %}">{{ album.title }}</a></h2>
+        </div>
+      </div>
     {% endfor %}
     </div>
 {% endblock %}

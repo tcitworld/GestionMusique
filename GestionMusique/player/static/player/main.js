@@ -1,4 +1,5 @@
 var Spotify = require('spotify-web-api-js');
+var $ = require('jquery');
 var s = new Spotify();
 
 window.onload=function(){
@@ -42,11 +43,15 @@ window.onload=function(){
 
   			console.log(track);
   		}
+      document.querySelector(".tracks_layout").style.display = "block";
+      document.querySelector("#loading").style.display = "none";
   	})
   	.catch(function(error) {
-    	console.error(error);
-  });
 
+    	console.error(error);
+      document.querySelector("#loading").style.display = "none";
+      document.querySelector("#noTracks").style.display = "block";
+  });
   } else {
 
     artist = document.querySelector(".artist").textContent;
@@ -54,12 +59,26 @@ window.onload=function(){
     s.searchArtists(artist)
     .then(function(data) {
       console.log('Search artists', data.artists.items[0]);
-      var pics = document.querySelectorAll(".pic")
+      var pics = document.querySelectorAll(".pic");
       for (var pic of pics) {
         pic.setAttribute('src',data.artists.items[0].images[0].url);
       }
     }, function(err) {
       console.error(err);
     });
+
+    $(".album_card").each(function() {
+
+      console.log($(this).find(".album_card_title").text());
+      var album = $(this);
+
+      s.searchAlbums($(this).find(".album_card_title").text() + " artist:" + artist)
+      .then(function(data) {
+        album.find(".pic").attr('src', data.albums.items[0].images[0].url);
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+    });      
   }
 }

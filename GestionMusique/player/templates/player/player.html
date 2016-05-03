@@ -10,22 +10,23 @@
   		<div class="row">
   		{% endif %}
   		<div class="col-md-4">
-  			<a href="{% url 'player.views.album' album.id %}">
-		    {% if album.img and album.img.name|exist %}
-		    <img src="/media/images/{{album.img.name}}">
-		    {% else %}
-		    <img src="{% static 'player/Musical Notes-48.png' %}" >
-		    {% endif %}
-		    </a>
-		    <div class="infos">
-			   	<a href="{% url 'player.views.album' album.id %}">{{ album.title }}</a>
-			    <em><a href="{% url 'player.views.artist' album.artist.id %}">{{ album.artist }}</a> (<a href="{% url 'player.views.group' album.group.id %}">{{ album.group }}</a>)</em>
-			    <div class="genres">
-			      {% for genre in album.genres.all %}
-			      <span class="genre">{{ genre.label }}</span>
-			      {% endfor %}
-			    </div>
-			    Released in {{ album.releaseYear }}
+  			<div class="album-card">
+	  			<a href="{% url 'player.views.album' album.id %}">
+			    {% if album.img and album.img.name|exist %}
+			    <img src="/media/images/{{album.img.name}}">
+			    {% else %}
+			    <img src="{% static 'player/Musical Notes-48.png' %}" >
+			    {% endif %}
+			    </a>
+			    <div class="infos">
+				   	<div><a href="{% url 'player.views.album' album.id %}">{{ album.title }}</a> - {% if album.releaseYear > 0 %} {{ album.releaseYear }} {% endif %}</div>
+				   	<div><a href="{% url 'player.views.artist' album.artist.id %}">{{ album.artist }}</a></div>
+				    <div class="genres">
+				      {% for genre in album.genres.all %}
+				      <span class="genre">{{ genre.label }}</span>
+				      {% endfor %}
+				    </div>
+				</div>
 			</div>
 	    </div>
 	    {% if forloop.counter|divisibleby:3 %}

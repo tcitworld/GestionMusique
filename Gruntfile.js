@@ -11,7 +11,7 @@ copy: {
 	materialize: {
         expand: true,
         cwd: 'bower_components/Materialize/bin',
-        src: 'materialize.css',
+        src: '*',
         dest: 'GestionMusique/player/static/player/'
       }
 	}

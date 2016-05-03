@@ -22,7 +22,8 @@ class LoginForm(BaseForm):
 class RegisterForm(BaseForm):
 	class Meta:
 		model = User
-		fields = ['username','password','email','first_name','last_name']
+		fields = ['username','password','email','last_name','first_name']
 		widgets = {
 			'password':forms.PasswordInput,
+			'email': forms.EmailInput,
 		}
