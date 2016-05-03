@@ -6,6 +6,9 @@ pip-selfcheck.json
 GestionMusique/db.sqlite3
 core/migrations/*
 
+node_modules/
+bower_components/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
