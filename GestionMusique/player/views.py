@@ -51,3 +51,8 @@ def register(request):
 def logoutUser(request):
 	logout(request)
 	return home(request)
+
+def search(request):
+    search = request.POST['search']
+    albums = Album.objects.filter(title__contains=str(search))
+    return render(request, 'player/player.html', locals())
