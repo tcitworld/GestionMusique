@@ -12,7 +12,6 @@ window.onload=function(){
 
 	s.searchAlbums(album + " artist:" + artist)
 	.then(function(data) {
-    	console.log('Search artists', data.albums.items[0]);
     	let pics = document.querySelectorAll(".pic");
       for (let pic of Array.from(pics)) {
         pic.setAttribute('src',data.albums.items[0].images[0].url);
@@ -23,7 +22,6 @@ window.onload=function(){
   		return s.getAlbumTracks(albumid);
   	})
   	.then(function(tracks) {
-  		console.log(tracks);
   		for (var track of tracks.items) {
   			var newRow   = trackList.insertRow(trackList.rows.length);
 
@@ -41,14 +39,12 @@ window.onload=function(){
   			var duration  = document.createTextNode(duration2.getUTCMinutes() + ":" +  sec);
   			cell3.appendChild(duration);
 
-  			console.log(track);
   		}
       document.querySelector(".tracks_layout").style.display = "block";
       document.querySelector("#loading").style.display = "none";
   	})
   	.catch(function(error) {
 
-    	// console.error(error);
       document.querySelector("#loading").style.display = "none";
       document.querySelector("#noTracks").style.display = "block";
   });
@@ -58,18 +54,15 @@ window.onload=function(){
 
     s.searchArtists(artist)
     .then(function(data) {
-      console.log('Search artists', data.artists.items[0]);
-      var pics = document.querySelectorAll(".pic");
-      for (var pic of pics) {
+      var pics = document.querySelectorAll(".artist_background .pic");
+      for (var pic of Array.from(pics)) {
         pic.setAttribute('src',data.artists.items[0].images[0].url);
       }
     }, function(err) {
-      console.error(err);
     });
 
     $(".album_card").each(function() {
 
-      console.log($(this).find(".album_card_title").text());
       var album = $(this);
 
       s.searchAlbums($(this).find(".album_card_title").text() + " artist:" + artist)
@@ -77,7 +70,6 @@ window.onload=function(){
         album.find(".pic").attr('src', data.albums.items[0].images[0].url);
       })
       .catch(function(error) {
-        console.error(error);
       });
     });      
   }
