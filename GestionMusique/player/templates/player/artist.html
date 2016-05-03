@@ -1,11 +1,18 @@
 {% extends "player/base.html" %}
 {% block content %}
     {% load static player_extra %}
-    <h1>{{ author }}</h1>
+    <div class="layout_full_artist">
+    <div class="artist_background">
+      <img class="pic">
+    </div>
+    <h1 class="artist">{{ artist }}</h1>
+    </div>
+    <div class="artist_info">
     {% for album in albums.all %}
         <h2><a href="{% url "player.views.album" album.id %}">{{ album.title }}</a></h2>
       {% if album.img and album.img.name|exist %}
       <img src="/media/images/{{ album.img.name }}" >
       {% endif %}
     {% endfor %}
+    </div>
 {% endblock %}

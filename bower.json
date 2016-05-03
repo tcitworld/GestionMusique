@@ -1,0 +1,21 @@
+{
+  "name": "GestionMusique",
+  "description": "Student Project",
+  "main": "",
+  "authors": [
+    "Thomas Citharel <tcit@tcit.fr>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/tcitworld/GestionMusique",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Materialize": "materialize#^0.97.6"
+  }
+}

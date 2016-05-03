@@ -1,0 +1,55 @@
+{% extends "player/base.html" %}
+{% block content %}
+    {% load static player_extra %}
+    <header>
+      <div class="background">
+        <div>
+          <img class="pic">
+        </div>
+      </div>
+      <div class="infos">
+        <div class="img_layout">
+        {% if album.img and album.img.name|exist %}
+        <img src="/media/images/{{ album.img.name }}" alt="">
+        {% else %}
+        <img class="pic card hoverable z-depth-4">
+        {% endif %}
+        </div>
+        <span class="title_layout">
+          <h1 class="albumTitle">{{ album.title }}</h1>
+          <span>{{ album.releaseYear }}</span>
+        </span>
+        <div>
+        <div class="artist_layout">
+          <a class="artist" href="{% url 'player.views.artist' album.artist.id %}">
+            <span>
+            {{ album.artist }}
+            </span>
+          </a>
+        </div>
+        </div>
+        <div class="genres_layout">
+        <ul class="genres">
+          {% for genre in album.genres.all %}
+          <li class="genre chip">{{ genre.label }}</li>
+          {% endfor %}
+        </ul>
+        </div>
+      </div>
+    </header>
+    <div class="table-responsive">
+      <table id="trackslist" class="table table-hover ">
+        <thead>
+          <tr>
+            <th>Track</th>
+            <th>Name</th>
+            <th>Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
+    Composé par <a href="{% url 'player.views.group' album.group.id %}">{{ album.group }}</a>
+{% endblock %}

@@ -32,3 +32,12 @@ class Classification(models.Model):
 	album = models.ForeignKey(Album)
 	genre = models.ForeignKey(Genre)
 
+class Song(models.Model):
+	album = models.ForeignKey(Album)
+
+class PlayList(models.Model):
+	songs = models.ManyToManyField(Song,through="Selection")
+
+class Selection(models.Model):
+	song = models.ForeignKey(Song)
+	playlist = models.ForeignKey(PlayList)
