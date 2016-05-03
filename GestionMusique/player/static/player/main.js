@@ -13,8 +13,8 @@ window.onload=function(){
 	s.searchAlbums(album + " artist:" + artist)
 	.then(function(data) {
     	console.log('Search artists', data.albums.items[0]);
-    	var pics = document.querySelectorAll(".pic")
-      for (var pic of pics) {
+    	let pics = document.querySelectorAll(".pic");
+      for (let pic of Array.from(pics)) {
         pic.setAttribute('src',data.albums.items[0].images[0].url);
       }
     	return data.albums.items[0].id;
@@ -48,7 +48,7 @@ window.onload=function(){
   	})
   	.catch(function(error) {
 
-    	console.error(error);
+    	// console.error(error);
       document.querySelector("#loading").style.display = "none";
       document.querySelector("#noTracks").style.display = "block";
   });
