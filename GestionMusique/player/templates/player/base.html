@@ -17,6 +17,12 @@
   <nav class="navbar navbar-inverse navbar-fixed-top">
   	<div class="container">
   		<div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
   			<a class="navbar-brand" href="{% url 'player.views.home' %}">Player</a>
   		</div>
   		<div id="navbar" class="navbar-collapse collapse">
@@ -29,19 +35,24 @@
   				<div class="form-group">
   					{{ form.password }}
   				</div>
-  				<button class="btn btn-success" type="submit">Login</button>
+  				<button class="btn btn-success" type="submit" aria-label="Login">
+            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+          </button>
           <a class="btn btn-primary" href="{% url 'url_register' %}">register</a>
           {% else %}
-          <a class="btn btn-danger" href="{% url 'player.views.logoutUser' %}">logout</a>
+          <a href="" aria-label="Playlist"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></a>
+          <a href="{% url 'player.views.logoutUser' %}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
           {% endif %}
           {% if user.is_staff %}
           <a class="btn btn-warning" href="/admin/">Admin</a>
           {% endif %}
-          <div id="connexion" class=""><strong>{{message}}</strong></div>
   			</form>
   		</div>
   	</div>
   </nav>
+  {% if message %}
+  <div id="connexion" class="alert alert-success" role="alert">{{message}}</div>
+  {% endif %}
   <div class="main">
   {% block content %}{% endblock %}
   </div>
