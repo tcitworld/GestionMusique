@@ -30,6 +30,10 @@
 }
 
 
+.navbar-brand {
+	line-height: 45px;
+}
+
 body {
     display: flex;
     min-height: 100vh;
