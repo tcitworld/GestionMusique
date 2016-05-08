@@ -131,7 +131,7 @@ window.onload=function(){
   });
 
   } 
-  if (document.querySelector('layout_full_artist') != null) {
+  if (document.querySelector('.layout_full_artist') != null) {
 
     artist = document.querySelector(".artist").textContent;
 
