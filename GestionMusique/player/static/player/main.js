@@ -1,15 +1,20 @@
-var overlayId;
 var Spotify = require('spotify-web-api-js');
 var jQuery = $ = require('jquery');
+require('velocity');
 var s = new Spotify();
 require('materialize-css');
 require('bootstrap');
 
-jQuery(document).ready(function() {
-  jQuery('.modal-trigger').leanModal();
-});
-
 window.onload=function(){
+
+  $('#trackslist').on('click', '.play', function() {
+      if ($(this).parent().find('audio').get(0).paused == true) {
+        $('audio').trigger('pause');
+        $(this).parent().find('audio').trigger("play");
+      } else {
+        $(this).parent().find('audio').trigger("pause");
+      }
+    });
 
   if (document.querySelector(".albumTitle") != null) {
 
@@ -30,28 +35,54 @@ window.onload=function(){
   	})
   	.then(function(tracks) {
   		for (var track of tracks.items) {
-  			var newRow   = trackList.insertRow(trackList.rows.length);
 
-  			var cell1  = newRow.insertCell(0);
-  			var tracknumber  = document.createTextNode(track.track_number);
-  			cell1.appendChild(tracknumber);
-
-  			var cell2  = newRow.insertCell(1);
-  			var name  = document.createTextNode(track.name);
-  			cell2.appendChild(name);
-
-  			var cell3  = newRow.insertCell(2);
         var duration2 = new Date(track.duration_ms);
         var sec = (duration2.getUTCSeconds() < 10) ? "0" + duration2.getUTCSeconds() : duration2.getUTCSeconds();
-  			var duration  = document.createTextNode(duration2.getUTCMinutes() + ":" +  sec);
-  			cell3.appendChild(duration);
+        var duration  = duration2.getUTCMinutes() + ":" +  sec;
 
+        $(trackList)
+          .append($('<tr>')
+            .append($('<td>')
+              .append($('<a>')
+                  .attr('class', 'waves-effect waves-light btn modal-trigger')
+                  .attr('href', '#Playlist1')
+                  .attr('aria-label','Add to playlist')
+                  .append($('<span>')
+                    .attr('class','glyphicon glyphicon-plus')
+                ) 
+              )
+            )
+            .append($('<td>')
+              .append($('<audio>')
+                .attr('src', track.preview_url)
+              )
+              .append($('<button>')
+                .attr('class','btn play')
+                .append($('<span>')
+                  .attr('class', 'glyphicon glyphicon-play-circle')
+                )
+                .attr('aria-label', 'Play')
+              )
+            )
+            .append($('<td>')
+              .text(track.track_number)
+            )
+            .append($('<td>')
+              .text(track.name)
+            )
+            .append($('<td>')
+              .text(duration)
+            )
+        );
   		}
       document.querySelector(".tracks_layout").style.display = "block";
       document.querySelector("#loading").style.display = "none";
+
+      $('.modal-trigger').leanModal();
   	})
   	.catch(function(error) {
 
+      console.log(error);
       document.querySelector("#loading").style.display = "none";
       document.querySelector("#noTracks").style.display = "block";
   });

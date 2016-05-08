@@ -23,6 +23,24 @@ copy: {
         cwd: 'node_modules/pickadate/lib',
         src: 'picker.js',
         dest: 'node_modules/materialize-css/bin'
+      },
+      materialize: {
+        expand: true,
+        cwd: 'node_modules/bootstrap/dist/css',
+        src: 'bootstrap.min.css',
+        dest: 'GestionMusique/player/static/player'
+      },
+      bootstrapfonts: {
+        expand: true,
+        cwd: 'node_modules/bootstrap/dist/fonts',
+        src: '*',
+        dest: 'GestionMusique/player/static/fonts'
+      },
+      materializefonts: {
+        expand: true,
+        cwd: 'node_modules/materialize-css/fonts/roberto',
+        src: '*',
+        dest: 'GestionMusique/player/static/fonts/roberto'
       }
 },
 babel: {
@@ -42,6 +60,6 @@ babel: {
 grunt.registerTask(
     'default',
     'Build and install everything',
-    ['copy', 'browserify', /*'babel', 'uglify'*/]
+    ['copy', 'browserify']
     );
 }
