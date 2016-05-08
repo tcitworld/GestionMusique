@@ -75,8 +75,6 @@ window.onload=function(){
         var sec = (duration2.getUTCSeconds() < 10) ? "0" + duration2.getUTCSeconds() : duration2.getUTCSeconds();
         var duration  = duration2.getUTCMinutes() + ":" +  sec;
 
-        console.log(track);
-
         $(trackList)
           .append($('<tr>')
             .append($('<td>')
@@ -164,8 +162,6 @@ window.onload=function(){
         var duration2 = new Date(track.duration_ms);
         var sec = (duration2.getUTCSeconds() < 10) ? "0" + duration2.getUTCSeconds() : duration2.getUTCSeconds();
         var duration  = duration2.getUTCMinutes() + ":" +  sec;
-
-        console.log(track);
 
         $('#trackslist tbody')
           .append($('<tr>')
