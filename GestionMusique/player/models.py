@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -33,11 +34,20 @@ class Classification(models.Model):
 	genre = models.ForeignKey(Genre)
 
 class Song(models.Model):
+	track = models.IntegerField()
+	title = models.CharField(max_length=200)
+	length = models.FloatField()
 	album = models.ForeignKey(Album)
+	def __str__(self):
+		return self.title
 
-class PlayList(models.Model):
-	songs = models.ManyToManyField(Song,through="Selection")
+class Playlist(models.Model):
+	title = models.CharField(max_length=200)
+	songs = models.ManyToManyField(Song, through="Selection")
+	user = models.ForeignKey(User)
+	def __str__(self):
+		return self.title
 
 class Selection(models.Model):
 	song = models.ForeignKey(Song)
-	playlist = models.ForeignKey(PlayList)
+	playlist = models.ForeignKey(Playlist)

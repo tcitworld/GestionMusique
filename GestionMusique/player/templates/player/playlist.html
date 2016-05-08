@@ -1,0 +1,36 @@
+{% extends "player/base.html" %}
+{% block content %}
+    {% load static player_extra %}
+    {% if songs.count > 0 %}
+    <div class="table-responsive">
+        <table id="trackslist" class="table table-hover ">
+          <thead>
+            <tr>
+              <th>Track</th>
+              <th>Name</th>
+              <th>Duration</th>
+              <th>Artist</th>
+              <th>Album</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for song in songs %}
+            <tr>
+              <td>{{ song.song.track }}</td>
+              <td>{{ song.song.title }}</td>
+              <td>{{ song.song.length }}</td>
+              <td><a href="{% url 'player.views.artist' song.song.album.artist.id %}">{{ song.song.album.artist.name }}</a></td>
+              <td><a href="{% url 'player.views.album' song.song.album.id %}">{{ song.song.album.title }}</a></td>
+            </tr>   
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="alert alert-info">
+      <h4>No songs yet !</h4>
+      <span>There's no songs yet inside this playlist !</span>
+      </div>
+      {% endif %}
+      <a href="{% url 'player.views.deleteplaylist' playlist.id %}"><button class="btn">Delete this playlist</button></a>
+{% endblock %}

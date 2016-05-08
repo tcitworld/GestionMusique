@@ -5,13 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     {% load static %}
+    <link rel="stylesheet" href="{% static 'player/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'player/style.css' %}">
     <link rel="stylesheet" href="{% static 'player/materialize.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="{% static 'player/materialize.js' %}"></script>
     <script src="{% static 'player/main.browser.js' %}"></script>
   </head>
   <body>
@@ -41,17 +38,17 @@
           </button>
           <a class="btn btn-primary" href="{% url 'url_register' %}">register</a>
           {% else %}
-          <a href="" aria-label="Playlist"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></a>
-          <a href="{% url 'player.views.logoutUser' %}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
-          {% endif %}
           {% if user.is_staff %}
           <a class="btn btn-warning" href="/admin/">Admin</a>
+          {% endif %}
+          <a href="{% url 'player.views.playlists' %}" aria-label="Playlist"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></a>
+          <a href="{% url 'player.views.logoutUser' %}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
           {% endif %}
   			</form>
         <form action="/search/" class="navbar-form navbar-right" method="post" accept-charset="utf-8">
           {% csrf_token %}
           <div class="form-group">
-            <input type="text" class="form-control" maxlength="30" name="search" value="" placeholder="Search...">
+            <input type="text" class="form-control" maxlength="30" name="search" value="{{ search }}" placeholder="Search...">
           </div>
           <button class="btn btn-success" type="submit" aria-label="Search">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>

@@ -4,6 +4,8 @@
 {% if user.is_authenticated %}
 {% block authentified %}{% endblock %}
 {% endif %}
+{% if albums.count > 0 %}
+Albums correspondant :
 <div class="container albums">
   	{% for album in albums %}
   		{% if forloop.counter|divisibleby:3 %}
@@ -34,4 +36,36 @@
 	    {% endif %}
   	{% endfor %}
 </div>
+{% endif %}
+{% if artists.count > 0 %}
+Artistes correspondants :
+<div class="container artists">
+{% for artist in artists %}
+<div class="col-md-4">
+<div class="artist-card">
+<a href="{% url 'player.views.artist' artist.id %}">
+<img src="{% static 'player/Musical Notes-48.png' %}">
+<div class="infos">
+<span>{{ artist.name }}</span>
+</div>
+</a>
+</div>
+</div>
+{% endfor %}
+</div>
+{% endif %}
+{% if genres.count > 0 %}
+Genres correspondants :
+<div class="container genres">
+{% for genre in genres %}
+<a href="{% url 'player.views.genre' genre.id %}"><span class="chip">{{ genre.label }}</span></a>
+{% endfor %}
+</div>
+{% endif %}
+{% if albums.count = 0 and artists.count = 0 and genres.count = 0 %}
+<div class="alert alert-warning" style="text-align: center;">
+	<h4>We're sorry</h4>
+	<span>Nothing matched your query.</span>
+</div>
+{% endif %}
 {% endblock %}

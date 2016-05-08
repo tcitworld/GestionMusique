@@ -1,14 +1,21 @@
+var overlayId;
 var Spotify = require('spotify-web-api-js');
-var $ = require('jquery');
+var jQuery = $ = require('jquery');
 var s = new Spotify();
+require('materialize-css');
+require('bootstrap');
+
+jQuery(document).ready(function() {
+  jQuery('.modal-trigger').leanModal();
+});
 
 window.onload=function(){
 
   if (document.querySelector(".albumTitle") != null) {
 
-  album = document.querySelector(".albumTitle").textContent;
-	artist = document.querySelector(".artist").textContent;
-	trackList = document.querySelector("#trackslist").getElementsByTagName('tbody')[0];
+  var album = document.querySelector(".albumTitle").textContent;
+	var artist = document.querySelector(".artist").textContent;
+	var trackList = document.querySelector("#trackslist").getElementsByTagName('tbody')[0];
 
 	s.searchAlbums(album + " artist:" + artist)
 	.then(function(data) {
@@ -48,6 +55,11 @@ window.onload=function(){
       document.querySelector("#loading").style.display = "none";
       document.querySelector("#noTracks").style.display = "block";
   });
+
+    // $('.addPlaylistButton').click(function() {
+    //   $.ajax(
+    //     )
+    // });
   } else {
 
     artist = document.querySelector(".artist").textContent;

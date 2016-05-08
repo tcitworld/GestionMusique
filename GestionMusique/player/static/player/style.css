@@ -53,6 +53,14 @@ body {
 	margin-bottom: 0px;
 }
 
+.navbar .container {
+	min-width: 80%;
+}
+
+select {
+	display: inline !important;
+}
+
 /*
 
 Player
@@ -63,7 +71,7 @@ Player
 	padding-top: 20px;
 }
 
-.album-card {
+.album-card, .artist-card {
 	text-align: center;
 }
 

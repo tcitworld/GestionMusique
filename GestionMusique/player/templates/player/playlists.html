@@ -1,0 +1,36 @@
+{% extends "player/base.html" %}
+{% block content %}
+{% load static player_extra %}
+<div class="row">
+{% if playlists.count > 0 %}
+{% for playlist in playlists %}
+<div class="col-md-4">
+	<div class="album-card">
+    <a href="{% url 'player.views.playlist' playlist.id %}">
+		<img src="{% static 'player/Musical Notes-48.png' %}" >
+		<div class="infos">
+			{{ playlist.title }}
+		</div>
+    </a>
+	</div>
+</div>
+{% endfor %}
+{% else %}
+<div class="alert alert-info">
+<h4>No playlists</h4>
+<span>Sorry, but it seems you don't have created playlists yet.</span>
+</div>
+{% endif %}
+</div>
+<div class="row">
+Adding a new playlist
+<form action="{% url 'player.views.addplaylist' %}" method="POST">
+    {% csrf_token %}
+    <fieldset>
+    <label for="playlistName">Name for the new playlist</label>
+    <input id="playlistName" name="playlistName">
+    </fieldset>
+    <button class="btn" type="submit">Add playlist</button>
+</form>
+</div>
+{% endblock %}
