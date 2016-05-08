@@ -16,9 +16,16 @@ window.onload=function(){
   $('#trackslist').on('click', '.play', function() {
       if ($(this).parent().find('audio').get(0).paused == true) {
         $('audio').trigger('pause');
+        $('.play span').addClass('glyphicon-play');
+        $('.play span').removeClass('glyphicon-pause');
         $(this).parent().find('audio').trigger("play");
       } else {
         $(this).parent().find('audio').trigger("pause");
+      }
+      if ($(this).find('span').hasClass('glyphicon-play')) {
+        $(this).find('span').toggleClass('glyphicon-pause');
+      } else {
+        $(this).find('span').toggleClass('glyphicon-play');
       }
     });
 
@@ -92,7 +99,7 @@ window.onload=function(){
               .append($('<button>')
                 .attr('class','btn play')
                 .append($('<span>')
-                  .attr('class', 'glyphicon glyphicon-play-circle')
+                  .attr('class', 'glyphicon glyphicon-play')
                 )
                 .attr('aria-label', 'Play')
               )
