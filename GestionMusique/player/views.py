@@ -71,7 +71,8 @@ def playlists(request):
 
 def playlist(request, playlist_id):
 	playlist = get_object_or_404(Playlist, id=playlist_id)
-	songs = Selection.objects.filter(playlist=playlist.id)
+	songs = playlist.songs.all()
+	print(songs)
 	return render(request, 'player/playlist.html', locals())
 
 def addplaylist(request):
@@ -81,9 +82,13 @@ def addplaylist(request):
 	playlist.save()
 	return render(request, 'player/playlists.html')
 
-def addsongtoplaylist(request, song_id):
+def addsongtoplaylist(request):
+	playlist_id = request.POST['playlist_id'] if request.POST['playlist_id'] else ""
+	playlist = get_object_or_404(Playlist, id=playlist_id)
+	song_id = request.POST['song_id'] if request.POST['song_id'] else ""
 	song = Song.objects.get_or_create(id=song_id)
-	playlist.songs.add(song)
+	playlist.songs.add(song[0].id)
+	return render(request, 'player/playlists.html')
 
 def deleteplaylist(request, playlist_id):
 	playlist = get_object_or_404(Playlist, id=playlist_id)

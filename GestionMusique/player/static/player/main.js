@@ -7,6 +7,12 @@ require('bootstrap');
 
 window.onload=function(){
 
+  /**
+   * 
+   * Playing tracks
+   *
+   */
+
   $('#trackslist').on('click', '.play', function() {
       if ($(this).parent().find('audio').get(0).paused == true) {
         $('audio').trigger('pause');
@@ -15,6 +21,35 @@ window.onload=function(){
         $(this).parent().find('audio').trigger("pause");
       }
     });
+
+  $('#addPlaylistButton').on('click',function() {
+    $.ajax({
+      url: location.origin + "/add-playlist/",
+      method: "POST",
+      data: { 
+        playlistName: $('#playlistName').val(),
+        csrfmiddlewaretoken: $('#csrf').val()
+         }
+    })
+  });
+
+  $("#addSongToPlayListButton").on('click', function() {
+    $.ajax({
+      url: location.origin + "/add-song-to-playlist/",
+      method: "POST",
+      data: {
+        playlist_id: $('select[name="playlistName"]').val(),
+        csrfmiddlewaretoken: $('#csrf').val(),
+        song_id: song_id
+      }
+    })
+  });
+
+  /**
+   *
+   * Displaying tracks
+   *
+   */
 
   if (document.querySelector(".albumTitle") != null) {
 
@@ -40,6 +75,8 @@ window.onload=function(){
         var sec = (duration2.getUTCSeconds() < 10) ? "0" + duration2.getUTCSeconds() : duration2.getUTCSeconds();
         var duration  = duration2.getUTCMinutes() + ":" +  sec;
 
+        console.log(track);
+
         $(trackList)
           .append($('<tr>')
             .append($('<td>')
@@ -51,8 +88,6 @@ window.onload=function(){
                     .attr('class','glyphicon glyphicon-plus')
                 ) 
               )
-            )
-            .append($('<td>')
               .append($('<audio>')
                 .attr('src', track.preview_url)
               )
@@ -62,6 +97,11 @@ window.onload=function(){
                   .attr('class', 'glyphicon glyphicon-play-circle')
                 )
                 .attr('aria-label', 'Play')
+              )
+              .append($('<span>')
+                .text(track.id)
+                .attr('class','trackID')
+                .hide()
               )
             )
             .append($('<td>')
@@ -79,6 +119,9 @@ window.onload=function(){
       document.querySelector("#loading").style.display = "none";
 
       $('.modal-trigger').leanModal();
+      $('.modal-trigger').on('click', function() {
+        song_id = $(this).parent().find('.trackID').text();
+      });
   	})
   	.catch(function(error) {
 
@@ -87,11 +130,8 @@ window.onload=function(){
       document.querySelector("#noTracks").style.display = "block";
   });
 
-    // $('.addPlaylistButton').click(function() {
-    //   $.ajax(
-    //     )
-    // });
-  } else {
+  } 
+  if (document.querySelector('layout_full_artist') != null) {
 
     artist = document.querySelector(".artist").textContent;
 
@@ -115,5 +155,68 @@ window.onload=function(){
       .catch(function(error) {
       });
     });      
+  }
+
+  if (document.querySelector(".playlistTitle") != null) {
+    $(".hidden li").each(function() {
+      s.getTrack($(this).text())
+      .then(function(track) {
+        var duration2 = new Date(track.duration_ms);
+        var sec = (duration2.getUTCSeconds() < 10) ? "0" + duration2.getUTCSeconds() : duration2.getUTCSeconds();
+        var duration  = duration2.getUTCMinutes() + ":" +  sec;
+
+        console.log(track);
+
+        $('#trackslist tbody')
+          .append($('<tr>')
+            .append($('<td>')
+              .append($('<audio>')
+                .attr('src', track.preview_url)
+              )
+              .append($('<button>')
+                .attr('class','btn play')
+                .append($('<span>')
+                  .attr('class', 'glyphicon glyphicon-play-circle')
+                )
+                .attr('aria-label', 'Play')
+              )
+              .append($('<span>')
+                .text(track.id)
+                .attr('class','trackID')
+                .hide()
+              )
+            )
+            .append($('<td>')
+              .text(track.track_number)
+            )
+            .append($('<td>')
+              .text(track.name)
+            )
+            .append($('<td>')
+              .text(duration)
+            )
+            .append($('<td>')
+              .text(track.artists[0].name)
+            )
+            .append($('<td>')
+              .text(track.album.name)
+            )
+        );
+      document.querySelector(".tracks_layout").style.display = "block";
+      document.querySelector("#loading").style.display = "none";
+
+      $('.modal-trigger').leanModal();
+      $('.modal-trigger').on('click', function() {
+        song_id = $(this).parent().find('.trackID').text();
+      });
+    })
+    .catch(function(error) {
+
+      console.log(error);
+      document.querySelector("#loading").style.display = "none";
+      document.querySelector("#noTracks").style.display = "block";
+  });
+    });
+    
   }
 }

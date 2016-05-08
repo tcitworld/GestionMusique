@@ -38,9 +38,9 @@ copy: {
       },
       materializefonts: {
         expand: true,
-        cwd: 'node_modules/materialize-css/fonts/roberto',
+        cwd: 'node_modules/materialize-css/fonts/roboto',
         src: '*',
-        dest: 'GestionMusique/player/static/fonts/roberto'
+        dest: 'GestionMusique/player/static/fonts/roboto'
       }
 },
 babel: {

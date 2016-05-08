@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^playlists/$', views.playlists),
     url(r'^playlist/(?P<playlist_id>[0-9]+)/$', views.playlist),
     url(r'^add-playlist/$', views.addplaylist),
+    url(r'^add-song-to-playlist/$', views.addsongtoplaylist),
     url(r'^delete-playlist/(?P<playlist_id>[0-9]+)/$', views.deleteplaylist),
     url(r'^login/$',views.loginUser,name='url_login'),
     url(r'^register/$',views.register,name='url_register'),

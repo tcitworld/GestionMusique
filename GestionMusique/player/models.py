@@ -34,20 +34,17 @@ class Classification(models.Model):
 	genre = models.ForeignKey(Genre)
 
 class Song(models.Model):
-	track = models.IntegerField()
-	title = models.CharField(max_length=200)
-	length = models.FloatField()
-	album = models.ForeignKey(Album)
+	id = models.CharField(max_length=200, primary_key=True)
 	def __str__(self):
-		return self.title
+		return self.id
 
 class Playlist(models.Model):
 	title = models.CharField(max_length=200)
-	songs = models.ManyToManyField(Song, through="Selection")
+	songs = models.ManyToManyField(Song)
 	user = models.ForeignKey(User)
 	def __str__(self):
 		return self.title
 
-class Selection(models.Model):
-	song = models.ForeignKey(Song)
-	playlist = models.ForeignKey(Playlist)
+# class Selection(models.Model):
+# 	song = models.ForeignKey(Song)
+# 	playlist = models.ForeignKey(Playlist)

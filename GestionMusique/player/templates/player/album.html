@@ -64,19 +64,22 @@
       <div class="modal-content">
         <h4>Choose a playlist</h4>
         {% if playlists.count > 0 %}
-        <p>Choose a playlist between these ones</p>
-        <select>
+        <select name="playlistName">
           {% for playlist in playlists %}
           <option value="{{ playlist.id }}">{{ playlist.title }}</option>
           {% endfor %}
         </select>
-        <button class="btn btn-primary">Add song to playlist</button>
+        <button class="btn btn-primary" id="addSongToPlayListButton">Add song to playlist</button>
         {% else %}
-        <p>Create a new playlist</p>
+        <div class="alert alert-info">
+          No playlists available
+        </div>
+        {% endif %}
+        <h4>Create a new playlist</h4>
         <label for="playlistName">Playlist name</label>
         <input id="playlistName" name="playlistName"></input>
-        <button class="btn btn-primary" id="addPlaylistButton">Create new playlist and add song</button>
-        {% endif %}
+        <input type="hidden" id="csrf" name="csrf" value="{{ csrf_token }}">
+        <button class="btn btn-primary" id="addPlaylistButton">Create new playlist</button>
       </div>
       <div class="modal-footer">
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>

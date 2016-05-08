@@ -1,11 +1,18 @@
 {% extends "player/base.html" %}
 {% block content %}
     {% load static player_extra %}
+    <h3 class="playlistTitle">{{ playlist.title }}</h3>
     {% if songs.count > 0 %}
+    <ul class="hidden">
+    {% for song in songs %}
+    <li>{{ song.id }}</li>
+    {% endfor %}
+    </ul>
     <div class="table-responsive">
         <table id="trackslist" class="table table-hover ">
           <thead>
             <tr>
+              <th></th>
               <th>Track</th>
               <th>Name</th>
               <th>Duration</th>
@@ -14,15 +21,6 @@
             </tr>
           </thead>
           <tbody>
-            {% for song in songs %}
-            <tr>
-              <td>{{ song.song.track }}</td>
-              <td>{{ song.song.title }}</td>
-              <td>{{ song.song.length }}</td>
-              <td><a href="{% url 'player.views.artist' song.song.album.artist.id %}">{{ song.song.album.artist.name }}</a></td>
-              <td><a href="{% url 'player.views.album' song.song.album.id %}">{{ song.song.album.title }}</a></td>
-            </tr>   
-            {% endfor %}
           </tbody>
         </table>
       </div>
