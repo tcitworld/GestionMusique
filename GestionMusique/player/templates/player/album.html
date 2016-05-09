@@ -31,7 +31,7 @@
         <div class="genres_layout">
         <ul class="genres">
           {% for genre in album.genres.all %}
-          <li class="genre chip"><a href="{% url 'player.views.genre' genre.id %}"><span>{{ genre.label }}</span></a></li>
+          <li class="genre"><a href="{% url 'player.views.genre' genre.id %}"><span class="chip">{{ genre.label }}</span></a></li>
           {% endfor %}
         </ul>
         </div>
