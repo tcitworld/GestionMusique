@@ -41,6 +41,12 @@ copy: {
         cwd: 'node_modules/materialize-css/fonts/roboto',
         src: '*',
         dest: 'GestionMusique/player/static/fonts/roboto'
+      },
+      materializecss: {
+        expand: true,
+        cwd: 'node_modules/materialize-css/bin',
+        src: 'materialize.css',
+        dest: 'GestionMusique/player/static/player'
       }
 },
 babel: {

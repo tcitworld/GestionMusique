@@ -66,8 +66,8 @@ window.onload=function(){
 
 	s.searchAlbums(album + " artist:" + artist)
 	.then(function(data) {
-    	let pics = document.querySelectorAll(".pic");
-      for (let pic of Array.from(pics)) {
+    	var pics = document.querySelectorAll(".pic");
+      for (var pic of Array.from(pics)) {
         pic.setAttribute('src',data.albums.items[0].images[0].url);
       }
     	return data.albums.items[0].id;
@@ -82,15 +82,17 @@ window.onload=function(){
         var sec = (duration2.getUTCSeconds() < 10) ? "0" + duration2.getUTCSeconds() : duration2.getUTCSeconds();
         var duration  = duration2.getUTCMinutes() + ":" +  sec;
 
+        var connected = document.querySelector("#connected") != null;
+
         $(trackList)
           .append($('<tr>')
             .append($('<td>')
               .append($('<a>')
-                  .attr('class', 'waves-effect waves-light btn modal-trigger')
+                  .attr('class', 'waves-effect waves-light btn modal-trigger' + (connected ? "" : " hidden"))
                   .attr('href', '#Playlist1')
                   .attr('aria-label','Add to playlist')
                   .append($('<span>')
-                    .attr('class','glyphicon glyphicon-plus')
+                    .attr('class','glyphicon glyphicon-plus' + (connected ? "" : " hidden"))
                 ) 
               )
               .append($('<audio>')
@@ -130,7 +132,7 @@ window.onload=function(){
   	})
   	.catch(function(error) {
 
-      console.log(error);
+      // console.log(error);
       document.querySelector("#loading").style.display = "none";
       document.querySelector("#noTracks").style.display = "block";
   });

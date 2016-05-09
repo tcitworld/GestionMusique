@@ -86,4 +86,9 @@
       </div>
       </div>
     </div>
+    {% if user.is_authenticated %}
+    <div id="connected" class="hidden">
+      log
+    </div>
+    {% endif %}
 {% endblock %}
