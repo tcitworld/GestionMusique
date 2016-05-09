@@ -44,7 +44,3 @@ class Playlist(models.Model):
 	user = models.ForeignKey(User)
 	def __str__(self):
 		return self.title
-
-# class Selection(models.Model):
-# 	song = models.ForeignKey(Song)
-# 	playlist = models.ForeignKey(Playlist)

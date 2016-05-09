@@ -37,7 +37,11 @@ window.onload=function(){
         playlistName: $('#playlistName').val(),
         csrfmiddlewaretoken: $('#csrf').val()
          }
-    })
+    }).
+    done(function() {
+      Materialize.toast('Playlist ' + $('#playlistName').val() + ' ajoutée', 4000);
+      $('#Playlist1').closeModal();
+    });
   });
 
   $("#addSongToPlayListButton").on('click', function() {
@@ -49,7 +53,11 @@ window.onload=function(){
         csrfmiddlewaretoken: $('#csrf').val(),
         song_id: song_id
       }
-    })
+    }).
+    done(function() {
+      Materialize.toast('Chanson ajoutée à la playlist ' + $('select option:selected').text(), 4000);
+      $('#Playlist1').closeModal();
+    });
   });
 
   /**
