@@ -10,7 +10,7 @@
   		<div class="row">
   		{% endif %}
   		<div class="col-md-4">
-  			<div class="album-card">
+  			<div class="album-card hoverable card-panel">
 	  			<a href="{% url 'player.views.album' album.id %}">
 			    {% if album.img and album.img.name|exist %}
 			    <img src="/media/images/{{album.img.name}}">

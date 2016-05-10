@@ -29,6 +29,20 @@ window.onload=function(){
       }
     });
 
+  $('#trackslist').on('click', '.remove', function() {
+    var btn = $(this);
+    $.ajax({
+      url: location.origin + "/delete-song-from-playlist/" + $('.playlistID').text() + "/" + $(this).parent().find(".trackID").text(),
+      method: "GET",
+      data: {
+        csrfmiddlewaretoken: $('#csrf').val()
+      }
+    })
+    .done(function() {
+      btn.parent().parent().slideToggle("slow");
+    });
+  });
+
   $('#addPlaylistButton').on('click',function() {
     $.ajax({
       url: location.origin + "/add-playlist/",
@@ -182,6 +196,7 @@ window.onload=function(){
 
         $('#trackslist tbody')
           .append($('<tr>')
+            .attr('class','track')
             .append($('<td>')
               .append($('<audio>')
                 .attr('src', track.preview_url)
@@ -192,6 +207,13 @@ window.onload=function(){
                   .attr('class', 'glyphicon glyphicon-play-circle')
                 )
                 .attr('aria-label', 'Play')
+              )
+              .append($('<button>')
+                .attr('class', 'btn remove')
+                .append($('<span>')
+                  .attr('class', 'glyphicon glyphicon-remove')
+                )
+                .attr('aria-label', 'Remove')
               )
               .append($('<span>')
                 .text(track.id)
@@ -230,6 +252,25 @@ window.onload=function(){
       document.querySelector("#noTracks").style.display = "block";
   });
     });
-    
+  }
+
+  if (document.querySelector("#playlistsTitle") != null) {
+    $(".playlist-img").each(function() {
+      var playlist = $(this);
+      playlist.find(".hidden span").each(function() {
+        var sid = $(this).text();
+        var img = playlist.find("img[data-src='None']");
+        if (img.attr("data-src") == "None") {
+          img.first().attr("data-src", "ok");
+          s.getTrack(sid)
+          .then(function(track) {
+            img.attr("src", track.album.images[0].url);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+        }
+      });
+    });
   }
 }

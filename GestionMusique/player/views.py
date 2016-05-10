@@ -72,7 +72,6 @@ def playlists(request):
 def playlist(request, playlist_id):
 	playlist = get_object_or_404(Playlist, id=playlist_id)
 	songs = playlist.songs.all()
-	print(songs)
 	return render(request, 'player/playlist.html', locals())
 
 def addplaylist(request):
@@ -94,3 +93,9 @@ def deleteplaylist(request, playlist_id):
 	playlist = get_object_or_404(Playlist, id=playlist_id)
 	playlist.delete()
 	return render(request, 'player/playlists.html')
+
+def deletefromplaylist(request, playlist_id, song_id):
+	playlist = get_object_or_404(Playlist, id=playlist_id)
+	song = get_object_or_404(Song, id=song_id)
+	playlist.songs.remove(song)
+	return render(request, 'player/playlists.html') 

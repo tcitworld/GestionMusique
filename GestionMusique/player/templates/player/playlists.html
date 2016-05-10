@@ -3,14 +3,23 @@
 {% load static player_extra %}
 <div class="row">
 {% if playlists.count > 0 %}
+<h3 id="playlistsTitle">Your playlists</h3>
 {% for playlist in playlists %}
-<div class="col-md-4">
-	<div class="album-card">
+<div class="col-md-2">
+	<div class="playlist-img">
     <a href="{% url 'player.views.playlist' playlist.id %}">
-		<img src="{% static 'player/Musical Notes-48.png' %}" >
-		<div class="infos">
+            <img data-src="None" src="{% static 'player/Musical Notes-48.png' %}" >
+            <img data-src="None" src="{% static 'player/Musical Notes-48.png' %}" >
+            <img data-src="None" src="{% static 'player/Musical Notes-48.png' %}" >
+            <img data-src="None" src="{% static 'player/Musical Notes-48.png' %}" >
+		<div class="infos center-align">
 			{{ playlist.title }}
 		</div>
+        <div class="hidden">
+        {% for pic in playlist.songs.values %}
+            <span>{{ pic.id }}</span>
+        {% endfor %}
+        </div>
     </a>
 	</div>
 </div>
