@@ -12,5 +12,5 @@ def exist(filename):
 	return fileStorage.exists(filename)
 
 @register.filter
-def escape(chaine):
+def safe(chaine):
 	return mark_safe(escape(chaine))

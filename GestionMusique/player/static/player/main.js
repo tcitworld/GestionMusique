@@ -273,4 +273,19 @@ window.onload=function(){
       });
     });
   }
+
+  if (document.querySelector(".player") != null) {
+    $(".col-md-4 img").each(function() {
+      var img = $(this);
+      var addr = $(this).attr('src');
+      $.ajax(addr)
+        .fail(function() {
+          var albumName = img.parent().parent().find(".title").text();
+          s.searchAlbums(albumName)
+          .then(function(album) {
+            img.attr('src',album.albums.items[0].images[0].url);
+          });
+        });
+    }); 
+  }
 }

@@ -4,7 +4,7 @@
 {% if user.is_authenticated %}
 {% block authentified %}{% endblock %}
 {% endif %}
-<div class="container albums">
+<div class="player container albums">
   	{% for album in albums %}
   		{% if forloop.counter|divisibleby:3 %}
   		<div class="row">
@@ -12,14 +12,14 @@
   		<div class="col-md-4">
   			<div class="album-card hoverable card-panel">
 	  			<a href="{% url 'player.views.album' album.id %}">
-			    {% if album.img and album.img.name|exist %}
-			    <img src="/media/images/{{album.img.name}}">
+			    {% if album.img%}
+			    <img src="/media/images/{{album.img.name | safe }}">
 			    {% else %}
 			    <img src="{% static 'player/Musical Notes-48.png' %}" >
 			    {% endif %}
 			    </a>
 			    <div class="infos">
-				   	<div><a href="{% url 'player.views.album' album.id %}">{{ album.title }}</a> - {% if album.releaseYear > 0 %} {{ album.releaseYear }} {% endif %}</div>
+				   	<div><a href="{% url 'player.views.album' album.id %}"><span class="title">{{ album.title }}</span></a> - {% if album.releaseYear > 0 %} {{ album.releaseYear }} {% endif %}</div>
 				   	<div><a href="{% url 'player.views.artist' album.artist.id %}">{{ album.artist }}</a></div>
 				    <div class="genres">
 				      {% for genre in album.genres.all %}
