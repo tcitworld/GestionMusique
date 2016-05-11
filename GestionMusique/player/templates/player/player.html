@@ -12,7 +12,7 @@
   		<div class="col-md-4">
   			<div class="album-card hoverable card-panel">
 	  			<a href="{% url 'player.views.album' album.id %}">
-			    {% if album.img%}
+			    {% if album.img %}
 			    <img src="/media/images/{{album.img.name | safe }}">
 			    {% else %}
 			    <img src="{% static 'player/Musical Notes-48.png' %}" >
