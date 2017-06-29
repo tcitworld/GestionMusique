@@ -21,7 +21,7 @@
     "grunt-contrib-uglify": "^1.0.1",
     "jquery": "^2.2.3",
     "load-grunt-tasks": "^3.5.0",
-    "materialize-css": "^0.97.6",
+    "materialize-css": "^0.99.0",
     "pickadate": "^3.5.6",
     "spotify-web-api-js": "^0.19.2",
     "velocity": "^0.7.2"
